@@ -1,0 +1,20 @@
+{
+  "name": "puhelinluettelo_backend",
+  "version": "0.0.1",
+  "description": "",
+  "license": "MIT",
+  "author": "Lauri",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:ui": "rm -rf dist && cd ../puhelinluettelo_frontend && npm run build && cp -r dist ../puhelinluettelo_backend",
+    "debloy:full": "npm run build:ui && git add . && git commit -m uibuild && git push"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "morgan": "^1.11.0"
+  }
+}
