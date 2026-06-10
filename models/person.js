@@ -15,12 +15,26 @@ mongoose.connect(url, { family: 4 })
         })
 
 const personSchema = new mongoose.Schema({
-    name: String,
-    number: String
+    number: {
+        type: String,
+        minlength: 8,
+        required: true,
+        validate: {
+            validator: function(value) {
+                return /^\d{2,3}-\d{7,8}$/.test(value)
+            },
+            message: "invalid phonenumber"
+        }
+    },
+    name: {
+        type: String,
+        minlength: 3,
+        require: true
+    }
 })
 
 personSchema.set('toJSON', {
-    transform: (document, returnObject ) => {
+    transform: (document, returnObject) => {
         returnObject.id = returnObject._id.toString()
         delete returnObject._id
         delete returnObject.__v
@@ -28,4 +42,3 @@ personSchema.set('toJSON', {
 })
 
 module.exports = mongoose.model('Person', personSchema)
-
